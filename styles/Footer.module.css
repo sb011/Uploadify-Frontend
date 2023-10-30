@@ -1,0 +1,19 @@
+/* Footer.css */
+
+.footer {
+  box-shadow: var(--shadow);
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+  padding: 20px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer p {
+  margin: 0;
+}
+
+.footer .portfolio {
+  text-decoration: underline;
+}

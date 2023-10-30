@@ -1,0 +1,21 @@
+/* components/Navbar.module.css */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  /* box-shadow: var(--shadow); */
+}
+
+.logo img {
+  width: 7rem;
+  height: auto;
+  margin: 0.8rem 0 0 0.8rem;
+}
+
+.name p {
+  margin: 0;
+  font-weight: 500;
+  margin-right: 1rem;
+}
