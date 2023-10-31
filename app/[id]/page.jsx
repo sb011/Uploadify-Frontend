@@ -1,15 +1,25 @@
 "use client";
-import styles from "../../styles/Download.module.css";
 import { useEffect, useState } from "react";
 import { getDataAPI } from "../../Config/ApiConfig";
-import Loading from "../../components/Loading";
 
+import Loading from "../../components/Loading";
+import styles from "../../styles/Download.module.css";
+
+/**
+ * Download Page
+ * @param   {object}    params  Parameters from the url
+ * @return  {JSX}               Download Page
+ */
 const Download = ({ params }) => {
   const id = params.id;
+
   const [file, setFile] = useState({});
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
+  /**
+   * Get file data from the API
+   */
   useEffect(() => {
     getDataAPI(`files/${id}`)
       .then((res) => {
@@ -23,11 +33,17 @@ const Download = ({ params }) => {
       });
   }, []);
 
+  /**
+   * Download the file
+   * @return  {void}
+   */
   const onDownload = async () => {
-    // using fetch
+    // Get the file
     const response = await fetch(file.url);
     const blob = await response.blob();
     const url = window.URL.createObjectURL(blob);
+
+    // Create a link and click it
     const a = document.createElement("a");
     a.href = url;
     a.download = file.publicId + "." + file.type;
@@ -35,9 +51,12 @@ const Download = ({ params }) => {
     a.click();
     window.URL.revokeObjectURL(url);
   };
+
+  // Loading
   if (isLoading) {
     return <Loading />;
   }
+
   return (
     <div className={styles.mainContainer}>
       <div className={styles.container}>

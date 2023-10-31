@@ -1,6 +1,10 @@
 import Link from "next/link";
 import styles from "../styles/Footer.module.css";
 
+/**
+ * Footer
+ * @return  {JSX}  Footer
+ */
 const Footer = () => {
   return (
     <footer className={styles.footer}>

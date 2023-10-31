@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  /* set up cors */
   async headers() {
     return [
       {
-        // matching all API routes
         source: "/api/:path*",
         headers: [
           { key: "Access-Control-Allow-Credentials", value: "true" },
@@ -21,6 +21,7 @@ const nextConfig = {
       },
     ];
   },
+  /* set up proxy */
   async rewrites() {
     return [
       {

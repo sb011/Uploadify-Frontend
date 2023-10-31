@@ -1,14 +1,18 @@
 import Link from "next/link";
+import Image from "next/image";
+import Logo from "../public/logo.png";
 import styles from "../styles/Navbar.module.css";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 
+/**
+ * Navbar
+ * @return  {JSX}  Navbar
+ */
 const Navbar = () => {
   return (
     <nav className={styles.navbar}>
       <div className={styles.logo}>
         <Link href="/">
-          <img src="/logo.png" alt="Logo" />
+          <Image src={Logo} alt="Logo" />
         </Link>
       </div>
     </nav>

@@ -1,23 +1,33 @@
 "use client";
-import { useEffect, useState } from "react";
-import styles from "../../styles/Login.module.css";
-import { postDataAPI } from "../../Config/ApiConfig";
-import { redirect } from "next/navigation";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { postDataAPI } from "../../Config/ApiConfig";
 
+import Link from "next/link";
+import styles from "../../styles/Login.module.css";
+
+/**
+ * Login Page
+ * @return  {JSX}  Login Page
+ */
 const Login = () => {
   const router = useRouter();
+
   const state = {
     email: "",
     password: "",
   };
-  const [info, setInfo] = useState(state);
+
   const [error, setError] = useState("");
+  const [info, setInfo] = useState(state);
 
   const { email, password } = info;
 
+  /**
+   * Check if the user is logged in
+   */
   useEffect(() => {
+    // Check if the user is logged in
     const token = localStorage.getItem("token");
     if (token !== null) {
       router.replace("/login");
@@ -25,18 +35,32 @@ const Login = () => {
     }
   }, []);
 
+  /**
+   * Handle input change
+   * @param   {object}  e  Event
+   * @return  {void}
+   */
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setInfo({ ...info, [name]: value });
   };
 
+  /**
+   * Submit the form
+   * @param   {object}  e  Event
+   * @return  {void}
+   */
   const onSubmit = (e) => {
     e.preventDefault();
+
+    // Check if the fields are filled
     if (!email || !password) {
       setError("Please fill all fields");
       return;
     }
     setError("");
+
+    // Send the data to the API
     postDataAPI("authentication/login", info)
       .then((res) => {
         localStorage.setItem("token", res.data.access_token);

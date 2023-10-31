@@ -1,24 +1,35 @@
 "use client";
-import { useState, useEffect } from "react";
-import styles from "../../styles/Register.module.css";
-import { postDataAPI } from "../../Config/ApiConfig";
-import { redirect } from "next/navigation";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { postDataAPI } from "../../Config/ApiConfig";
 
+import Link from "next/link";
+import styles from "../../styles/Register.module.css";
+
+/**
+ * Register Page
+ * @return  {JSX}  Register Page
+ */
 const Register = () => {
   const router = useRouter();
+
   const state = {
     name: "",
     email: "",
     password: "",
   };
-  const [info, setInfo] = useState(state);
+
   const [error, setError] = useState("");
+  const [info, setInfo] = useState(state);
 
   const { name, email, password } = info;
 
+  /**
+   * Check if the user is logged in
+   * @return  {void}
+   */
   useEffect(() => {
+    // Check if the user is logged in
     const token = localStorage.getItem("token");
     if (token !== null) {
       router.replace("/login");
@@ -26,13 +37,24 @@ const Register = () => {
     }
   }, []);
 
+  /**
+   * Handle input change
+   * @param   {object}  e  Event
+   * @return  {void}
+   */
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setInfo({ ...info, [name]: value });
   };
 
+  /**
+   * Submit the form
+   * @param   {object}  e  Event
+   * @return  {void}
+   */
   const onSubmit = (e) => {
     e.preventDefault();
+    // validate the fields
     if (!name || !email || !password) {
       setError("Please fill all fields");
       return;
@@ -57,8 +79,9 @@ const Register = () => {
       setError("Password should contain at least one special character");
       return;
     }
-
     setError("");
+
+    // Send the data to the API
     postDataAPI("authentication/register", info)
       .then((res) => {
         localStorage.setItem("token", res.data.access_token);

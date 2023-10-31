@@ -1,24 +1,36 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getDataAPI, deleteDataAPI } from "../../Config/ApiConfig";
-import styles from "../../styles/Files.module.css";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import ButtonContainer from "../../components/ButtonContainer";
-import Loading from "../../components/Loading";
 
+import Link from "next/link";
+import Loading from "../../components/Loading";
+import styles from "../../styles/Files.module.css";
+import ButtonContainer from "../../components/ButtonContainer";
+
+/**
+ * Files Page
+ * @return  {JSX}  Files Page
+ */
 const Files = () => {
   const router = useRouter();
+
   const [files, setFiles] = useState([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
+  /**
+   * Get files data from the API
+   */
   useEffect(() => {
+    // Check if the user is logged in
     const token = localStorage.getItem("token");
     if (token === null) {
       router.replace("/login");
       return;
     }
+
+    // Get the files
     getDataAPI("files")
       .then((res) => {
         setFiles(res.data);
@@ -31,6 +43,11 @@ const Files = () => {
       });
   }, []);
 
+  /**
+   * Delete a file
+   * @param   {string}  id  File id
+   * @return  {void}
+   */
   const onDelete = (id) => {
     setIsLoading(true);
     deleteDataAPI(`files/${id}`)
@@ -45,9 +62,11 @@ const Files = () => {
       });
   };
 
+  // Loading
   if (isLoading) {
     return <Loading />;
   }
+
   return (
     <div className={styles.mainContainer}>
       <ButtonContainer file="files" />

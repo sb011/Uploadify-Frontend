@@ -1,10 +1,20 @@
-import Link from "next/link";
-import styles from "../styles/ButtonContainer.module.css";
 import { useRouter } from "next/navigation";
 
+import Link from "next/link";
+import styles from "../styles/ButtonContainer.module.css";
+
+/**
+ * Button Container
+ * @param   {string}  file  Current file
+ * @return  {JSX}  Button Container
+ */
 const ButtonContainer = ({ file }) => {
   const router = useRouter();
 
+  /**
+   * Logout the user
+   * @return  {void}
+   */
   const onLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("name");

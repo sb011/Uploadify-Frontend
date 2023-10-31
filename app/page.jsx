@@ -1,18 +1,28 @@
 "use client";
-import styles from "../styles/page.module.css";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import ButtonContainer from "../components/ButtonContainer";
-import Loading from "../components/Loading";
 
+import Link from "next/link";
+import Loading from "../components/Loading";
+import styles from "../styles/page.module.css";
+import ButtonContainer from "../components/ButtonContainer";
+
+/**
+ * Upload File Page
+ * @return  {JSX}  Upload File Page
+ */
 const UploadFile = () => {
   const router = useRouter();
-  const [message, setMessage] = useState("");
+
   const [url, setUrl] = useState("");
   const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
+  /**
+   * Check if the user is logged in
+   * @return  {void}
+   */
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token === null) {
@@ -22,14 +32,23 @@ const UploadFile = () => {
     setIsLoading(false);
   }, []);
 
+  /**
+   * Handle file change
+   * @param   {object}  e  Event
+   * @return  {void}
+   */
   const handleFileChange = (e) => {
     setIsLoading(true);
     const formData = new FormData();
     formData.append("file", e.target.files[0]);
+
+    // Check file size
     if (e.target.files[0].size > 5000000) {
       setError("File size should be less than 10MB");
       return;
     }
+
+    // Upload the file
     fetch("/api/files/upload", {
       method: "POST",
       body: formData,
@@ -55,9 +74,12 @@ const UploadFile = () => {
         setIsLoading(false);
       });
   };
+
+  // Loading
   if (isLoading) {
     return <Loading />;
   }
+
   return (
     <div className={styles.mainContainer}>
       <ButtonContainer file="upload" />
