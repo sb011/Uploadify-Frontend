@@ -1,7 +1,5 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:8080";
-
 export const getDataAPI = async (url) => {
   const res = await axios.get(`/api/${url}`, {
     headers: { Authorization: localStorage.getItem("token") },
@@ -11,7 +9,9 @@ export const getDataAPI = async (url) => {
 
 export const postDataAPI = async (url, post) => {
   const res = await axios.post(`/api/${url}`, post, {
-    headers: { Authorization: localStorage.getItem("token") },
+    headers: {
+      Authorization: localStorage.getItem("token"),
+    },
   });
   return res;
 };

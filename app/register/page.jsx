@@ -37,15 +37,35 @@ const Register = () => {
       setError("Please fill all fields");
       return;
     }
+    if (password.length < 8) {
+      setError("Password should be at least 8 characters");
+      return;
+    }
+    if (!/\d/.test(password)) {
+      setError("Password should contain at least one number");
+      return;
+    }
+    if (!/[a-z]/.test(password)) {
+      setError("Password should contain at least one letter");
+      return;
+    }
+    if (!/[A-Z]/.test(password)) {
+      setError("Password should contain at least one capital letter");
+      return;
+    }
+    if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(password)) {
+      setError("Password should contain at least one special character");
+      return;
+    }
+
     setError("");
-    postDataAPI("auth/register", info)
+    postDataAPI("authentication/register", info)
       .then((res) => {
         localStorage.setItem("token", res.data.access_token);
-        localStorage.setItem("name", res.data.name);
-        redirect("/");
+        router.replace("/");
       })
       .catch((err) => {
-        //setError(err.response.data.msg);
+        setError(err.response.data.message);
       });
   };
 

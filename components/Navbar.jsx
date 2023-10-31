@@ -1,5 +1,7 @@
 import Link from "next/link";
 import styles from "../styles/Navbar.module.css";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
   return (
@@ -9,10 +11,6 @@ const Navbar = () => {
           <img src="/logo.png" alt="Logo" />
         </Link>
       </div>
-      <div className={styles.name}>
-        <p>Hello, Your Name</p>
-      </div>
-      <div className={styles.logout}>Logout</div>
     </nav>
   );
 };

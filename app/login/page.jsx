@@ -37,15 +37,13 @@ const Login = () => {
       return;
     }
     setError("");
-    postDataAPI("auth/login", info)
+    postDataAPI("authentication/login", info)
       .then((res) => {
         localStorage.setItem("token", res.data.access_token);
-        localStorage.setItem("name", res.data.name);
-        redirect("/");
+        router.replace("/");
       })
       .catch((err) => {
-        console.log(err);
-        //setError(err.response.message);
+        setError(err.response.data.message);
       });
   };
 

@@ -11,7 +11,9 @@
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   padding: 2rem;
-  width: 40%;
+  display: flex;
+  flex-direction: column;
+  width: 95%;
 }
 
 .header {
@@ -21,22 +23,48 @@
 }
 
 .headers {
+  width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   margin-top: 1rem;
   border-bottom: 1px solid var(--border-color);
   padding-bottom: 0.5rem;
 }
 
+.tableHeader {
+  width: 30%;
+}
+
 .dataContainer {
+  width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  align-items: center;
   margin-top: 1rem;
+}
+
+.data {
+  width: 30%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.data:nth-child(2) {
+  text-decoration: underline;
 }
 
 .noData {
   text-align: center;
   margin-top: 1rem;
+}
+
+.btn {
+  border: 1px solid var(--border-dark-color);
+  background: #000;
+  color: #fff;
+  padding: 0.7rem;
+  font-size: 1rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
 }
