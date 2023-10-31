@@ -12,6 +12,7 @@ const Navbar = () => {
       <div className={styles.name}>
         <p>Hello, Your Name</p>
       </div>
+      <div className={styles.logout}>Logout</div>
     </nav>
   );
 };

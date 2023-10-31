@@ -1,11 +1,13 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "../../styles/Register.module.css";
 import { postDataAPI } from "../../Config/ApiConfig";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Register = () => {
+  const router = useRouter();
   const state = {
     name: "",
     email: "",
@@ -15,6 +17,14 @@ const Register = () => {
   const [error, setError] = useState("");
 
   const { name, email, password } = info;
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token !== null) {
+      router.replace("/login");
+      return;
+    }
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -35,7 +45,7 @@ const Register = () => {
         redirect("/");
       })
       .catch((err) => {
-        setError(err.response.data.msg);
+        //setError(err.response.data.msg);
       });
   };
 
