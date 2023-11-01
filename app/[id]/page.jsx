@@ -46,7 +46,7 @@ const Download = ({ params }) => {
     // Create a link and click it
     const a = document.createElement("a");
     a.href = url;
-    a.download = file.publicId + "." + file.type;
+    a.download = file.fileName + "." + file.type;
     document.body.appendChild(a);
     a.click();
     window.URL.revokeObjectURL(url);
