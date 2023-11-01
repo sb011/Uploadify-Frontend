@@ -55,7 +55,7 @@ const Files = () => {
         setFiles(files.filter((file) => file.id !== id));
       })
       .catch((error) => {
-        setError(error.response.data.msg);
+        setError(error.response.data.message);
       })
       .finally(() => {
         setIsLoading(false);
@@ -70,6 +70,7 @@ const Files = () => {
   return (
     <div className={styles.mainContainer}>
       <ButtonContainer file="files" />
+      {error && <div className={styles.error}>{error}</div>}
       <div className={styles.container}>
         <p className={styles.header}>Files</p>
         <div className={styles.headers}>
