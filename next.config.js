@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const BACKEND_URL = process.env.BACKEND_URL;
+
 const nextConfig = {
   /* set up cors */
   async headers() {
@@ -26,7 +28,7 @@ const nextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: "https://uploadify-backend.onrender.com/api/:path*",
+        destination: `${BACKEND_URL}/api/:path*`,
       },
     ];
   },
